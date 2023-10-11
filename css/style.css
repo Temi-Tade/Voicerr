@@ -1,0 +1,47 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root{
+	--theme: #333;
+	--text: #EEE;
+	--solid: #4091FF;
+}
+
+html{
+	background: var(--theme);
+	color: var(--text);
+}
+
+header{
+	background: var(--solid);
+	padding: .5rem;
+}
+
+button{
+	appearance: none;
+	padding: .75rem;
+	border: 0;
+}
+
+#record_btn_wrap{
+	position: fixed;
+	bottom: 2rem;
+	width: 100%;
+	margin: auto;
+	padding: .5rem;
+	display: flex;
+	justify-content: center;
+}
+
+#record_btn_wrap button{
+	width: 4rem;
+	height: 4rem;
+	font-size: 3rem;
+	border-radius: 50%;
+	background: transparent;
+	background: #F11010;
+	color: var(--text);
+}
