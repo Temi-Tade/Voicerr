@@ -2,6 +2,7 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	transition: .25s;
 }
 
 :root{
@@ -13,6 +14,7 @@
 html{
 	background: var(--theme);
 	color: var(--text);
+	font-family: "Ubuntu", sans-serif
 }
 
 header{
@@ -24,6 +26,11 @@ button{
 	appearance: none;
 	padding: .75rem;
 	border: 0;
+}
+
+#info{
+	text-align: center;
+	padding: 1rem;
 }
 
 #record_btn_wrap{
