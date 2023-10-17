@@ -33,6 +33,30 @@ button{
 	padding: 1rem;
 }
 
+#text_wrap{
+	padding: 1rem;
+	width: 90%;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+}
+
+#text{
+	appearance: none;
+	background: transparent;
+	border: 1.5px solid;
+	border-radius: .5rem;
+	width: 90%;
+	resize: none;
+	padding: .5rem;
+	font-family: "Ubuntu", sans-serif;
+}
+
+textarea:disabled {
+	background: transparent;
+	color: var(--text);
+}
+
 #record_btn_wrap{
 	position: fixed;
 	bottom: 2rem;
@@ -40,7 +64,7 @@ button{
 	margin: auto;
 	padding: .5rem;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 }
 
 #record_btn_wrap button{
@@ -49,6 +73,19 @@ button{
 	font-size: 3rem;
 	border-radius: 50%;
 	background: transparent;
-	background: #F11010;
-	color: var(--text);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#record_btn{
+	color: #1CB40C;
+}
+
+#stop_btn{
+	color: #F10;
+}
+
+#record_btn:disabled, #stop_btn:disabled {
+	color: #CCC;
 }

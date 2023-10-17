@@ -1,40 +1,43 @@
 const TRANSLATED_TEXT = ''
 const TEXT_AREA = document.querySelector("#text")
 const INFO = document.querySelector("#info")
+const RECORD_BTN = document.querySelector("#record_btn")
+const STOP_REC_BTN = document.querySelector("#stop_btn")
 const SpeechRecognition = webkitSpeechRecognition || window.webkitSpeechRecognition
 
 const SET_INFO = (newText) => {
 	INFO.innerHTML = newText
 }
 
-const checkButtonState = (x, y) => {
-	if (x === 'fa-solid fa-microphone') {
-		y.setAttribute('class', 'fa-solid fa-stop')
-		START_RECORDING()
-	} else {
-		y.setAttribute('class', 'fa-solid fa-microphone')
-	}
-}
-
-const START_RECORDING = () => {
+const START_RECORDING = (rec_bool, stop_bool) => {
 	if (SpeechRecognition !== undefined) {
+		rec_bool.disabled = true
+		stop_bool.disabled = false
 		let record = new SpeechRecognition()
+		record.lang = 'en-US'
+		record.continuous = true
 		record.onstart = () => {
 			SET_INFO('Recording in progress...')
-			TEXT_AREA.value += record.results[0][0].transcript
 		}
 		
-		record.onspeechend = () => {
-			SET_INFO('Click on the <span class="fa-solid fa-microphone"></span> button to start your recording.')
+		record.onsoundend = () => {
+			SET_INFO('Click on the <span class="fa-solid fa-microphone" style="color: #1CB40C"></span> button to start your recording.')
+			rec_bool.disabled = false
+			stop_bool.disabled = true
+		}
+
+		record.onresult = (res) => {
+			TEXT_AREA.value = res.results[0][0].transcript
+        }
+         
+        record.start()
+
+		STOP_REC_BTN.onclick = () => {
+			rec_bool.disabled = false
+			stop_bool.disabled = true
 			record.stop()
 		}
-		
-		record.onresult = (res) => {
-			alert(res)
-		}
-		
-		record.start()
 	} else {
-		
+		//error msg
 	}
 }
