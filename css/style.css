@@ -89,3 +89,46 @@ textarea:disabled {
 #record_btn:disabled, #stop_btn:disabled {
 	color: #CCC;
 }
+
+#modalbg{
+	padding: 1rem;
+	padding-top: 5rem;
+	position: fixed;
+	background: #6667;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	margin: auto;
+	backdrop-filter: blur(.1rem);
+	display: none;
+}
+
+#modal{
+	padding: 1rem;
+	background: var(--theme);
+	width: 85%;
+	margin: auto;
+	border-radius: .5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#status_icon{
+	width: 5rem;
+	height: 5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	font-size: 5rem;
+	padding: 3rem;
+}
+
+#status_text{
+	padding: 1rem;
+	margin-top: 1rem;
+	text-align: center;
+}
