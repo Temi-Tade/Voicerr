@@ -17,16 +17,32 @@
 			<h1>TransCorder</h1>
 		</header>
 		
+		<p id="info">Click on the <span class="fa-solid fa-microphone" style="color: #1CB40C"></span> button to start your recording.</p>
+		
+		<section id="audio">
+			<audio src="" controls></audio>
+			<div id="audio_actions">
+				<button id="play" class="fa-solid fa-play" onclick="PLAY_AUDIO(this)"></button>
+				<button id="playbackspeed">Playback Speed: 1×</button>
+			</div>
+		</section>
+		
 		<section id="content">
-			<p id="info">Click on the <span class="fa-solid fa-microphone" style="color: #1CB40C"></span> button to start your recording.</p>
 			<section id="trans_text">
 				<div id="text_wrap">
-					<textarea id="text" disabled rows="20" cols="10"></textarea>
+					<textarea id="text" disabled rows="20" cols="10" placeholder="Text will show here..."></textarea>
+				</div>
+				<div id="actions">
+					<ul type="none">
+						<li><button id="edit" class="fa-solid fa-edit"></button></li>
+						<li><button id="copy" class="fa-solid fa-copy"></button></li>
+						<li><button id="del" class="fa-sharp fa-solid fa-trash"></button></li>
+					</ul>
 				</div>
 			</section>
+			
 			<div id="record_btn_wrap">
-				<button id="record_btn" class="fa-solid fa-microphone" onclick="START_RECORDING(RECORD_BTN, STOP_REC_BTN)"></button>
-				<button disabled id="stop_btn" class="fa-solid fa-stop"></button>
+				<button id="record_btn" class="fa-solid fa-microphone" onclick="START_RECORDING(RECORD_BTN)"></button>
 			</div>
 			
 			<div id="modalbg">

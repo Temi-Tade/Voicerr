@@ -2,9 +2,9 @@ const TRANSLATED_TEXT = ''
 const TEXT_AREA = document.querySelector("#text")
 const INFO = document.querySelector("#info")
 const RECORD_BTN = document.querySelector("#record_btn")
-const STOP_REC_BTN = document.querySelector("#stop_btn")
 const MODAL = document.querySelector("#modal")
 const SpeechRecognition = webkitSpeechRecognition || window.webkitSpeechRecognition
+const AUDIO = document.querySelector("audio")
 
 const SET_INFO = (newText) => {
 	INFO.innerHTML = newText
@@ -18,16 +18,19 @@ const SET_STATUS = (icon, stat) => {
 	`
 }
 
-const START_RECORDING = (rec_bool, stop_bool) => {
+const START_RECORDING = async (rec_bool) => {
 	if (SpeechRecognition !== undefined) {
 		rec_bool.disabled = true
-		stop_bool.disabled = false
 		let record = new SpeechRecognition()
 		record.lang = 'en-US'
 		record.continuous = true
+		let stream = await navigator.mediaDevices.getUserMedia({audio: true, video: false})
+		let mediaRecorder = new MediaRecorder(stream)
+		mediaRecorder.start()
+		let chunks = []
 		record.onstart = () => {
 			SET_INFO('Recording in progress...')
-			SET_STATUS('fa-solid fa-ear-listen fa-beat', 'I am listening... Start Speaking...')
+			SET_STATUS('fa-solid fa-ear-listen fa-beat','Listening...<br> Start Speaking...')
 			window.onclick = () => {
 				if (event.target === MODAL.parentElement) {
 					return
@@ -38,12 +41,11 @@ const START_RECORDING = (rec_bool, stop_bool) => {
 		record.onsoundend = () => {
 			SET_INFO('Click on the <span class="fa-solid fa-microphone" style="color: #1CB40C"></span> button to start your recording.')
 			rec_bool.disabled = false
-			stop_bool.disabled = true
+			mediaRecorder.stop()
 		}
 		
 		record.onnomatch = () => {
 			rec_bool.disabled = false
-			stop_bool.disabled = true
 			SET_INFO('Click on the <span class="fa-solid fa-microphone" style="color: #1CB40C"></span> button to start your recording.')
 			SET_STATUS('fa-solid fa-circle-exclamation', 'Oops! I did not catch that. Please try again')
 			window.onclick = () => {
@@ -59,17 +61,38 @@ const START_RECORDING = (rec_bool, stop_bool) => {
 			}else{
 				TEXT_AREA.value += res.results[0][0].transcript
 			}
+			MODAL.parentElement.style.display = 'none'
         }
+        
+        mediaRecorder.ondataavailable = (e) => {
+			chunks.push(e.data)
+		}
+		
+		mediaRecorder.onstop = () => {
+			let blob = new Blob(chunks)
+			let url = URL.createObjectURL(blob)
+			AUDIO.src = url
+			AUDIO.onloadedmetadata = () => {
+				document.querySelector("#actions").style.display = 'flex'
+				document.querySelector("#audio_actions").style.display = 'flex'
+			}
+		}
          
         record.start()
-
-		STOP_REC_BTN.onclick = () => {
-			rec_bool.disabled = false
-			stop_bool.disabled = true
-			record.stop()
-		}
 	} else {
 		//error msg
 	}
 }
 
+const PLAY_AUDIO = async (btn) => {
+	if (btn.getAttribute('class') === 'fa-solid fa-play') {
+		btn.setAttribute('class', 'fa-solid fa-pause')
+		await AUDIO.play()
+	}else{
+		btn.setAttribute('class', 'fa-solid fa-play')
+		await AUDIO.pause()
+	}
+	AUDIO.onended = () => {
+		btn.setAttribute('class', 'fa-solid fa-play')
+	}
+}

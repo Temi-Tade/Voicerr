@@ -26,6 +26,8 @@ button{
 	appearance: none;
 	padding: .75rem;
 	border: 0;
+	cursor: pointer;
+	font-family: "Ubuntu", sans-serif
 }
 
 #info{
@@ -50,11 +52,16 @@ button{
 	resize: none;
 	padding: .5rem;
 	font-family: "Ubuntu", sans-serif;
+	font-size: 1rem;
 }
 
 textarea:disabled {
 	background: transparent;
 	color: var(--text);
+}
+
+textarea:disabled::placeholder{
+	color: #DDD;
 }
 
 #record_btn_wrap{
@@ -70,9 +77,9 @@ textarea:disabled {
 #record_btn_wrap button{
 	width: 4rem;
 	height: 4rem;
-	font-size: 3rem;
+	font-size: 2.5rem;
 	border-radius: 50%;
-	background: transparent;
+	background: var(--text);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -87,7 +94,8 @@ textarea:disabled {
 }
 
 #record_btn:disabled, #stop_btn:disabled {
-	color: #CCC;
+	color: #ddd;
+	background: #777;
 }
 
 #modalbg{
@@ -131,4 +139,65 @@ textarea:disabled {
 	padding: 1rem;
 	margin-top: 1rem;
 	text-align: center;
+	font-size: 1.5rem;
+}
+
+#actions{
+	display: none;
+}
+
+#actions ul{
+	display: flex;
+	padding: .75rem;
+	width: 90%;
+	margin: auto;
+	justify-content: space-around;
+}
+
+#actions ul li button{
+	width: 3rem;
+	height: 3rem;
+	border-radius: 1rem;
+	font-size: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1.75rem;
+}
+
+#actions ul li button:not(button#del){
+	font-weight: 300
+}
+
+audio{
+	display: none;
+}
+
+#audio button{
+	display: block;
+}
+
+#audio_actions{
+	padding: .5rem;
+	justify-content: space-between;
+	display: none;
+}
+
+#play{
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+	font-size: 1.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#playbackspeed{
+	border-radius: .5rem;
+	font-size: 1rem
+}
+
+:disabled{
+	color: #DDD;
 }
