@@ -14,7 +14,18 @@
 html{
 	background: var(--theme);
 	color: var(--text);
-	font-family: "Ubuntu", sans-serif
+	font-family: "Ubuntu", sans-serif;
+	user-select: none;
+	user-zoom: none;
+}
+
+@keyframes pulse{
+	from{
+		box-shadow: 0 0 0 4px #CCC;
+	}
+	to{
+		box-shadow: 0;
+	}
 }
 
 header{
@@ -53,6 +64,7 @@ button{
 	padding: .5rem;
 	font-family: "Ubuntu", sans-serif;
 	font-size: 1rem;
+	user-select: none;
 }
 
 textarea:disabled {
@@ -133,6 +145,9 @@ textarea:disabled::placeholder{
 	border-radius: 50%;
 	font-size: 5rem;
 	padding: 3rem;
+	animation-name: pulse;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
 }
 
 #status_text{

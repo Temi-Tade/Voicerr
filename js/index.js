@@ -18,8 +18,29 @@ const SET_STATUS = (icon, stat) => {
 	`
 }
 
+const CHECK_PERMISSION = () => {
+	navigator.permissions.query({name: 'microphone'})
+	.then(permissionStatus => {
+	switch (permissionStatus.state) {
+		case 'granted':
+			return permissionStatus.state;
+			break;
+		case 'prompt':
+			return permissionStatus.state;
+			break;
+		case 'denied':
+			SET_STATUS('fa-solid fa-info', `You have to allow access for the following feature to use this service: <strong>Microphone</strong>. <br> Please allow it in your browser settings for this site
+			`)
+			break;
+		default:
+			return permissionStatus.state;
+		}
+	})
+}
+
+
 const START_RECORDING = async (rec_bool) => {
-	if (SpeechRecognition !== undefined) {
+	if (SpeechRecognition !== undefined && CHECK_PERMISSION() !== 'denied') {
 		rec_bool.disabled = true
 		let record = new SpeechRecognition()
 		record.lang = 'en-US'
@@ -30,7 +51,7 @@ const START_RECORDING = async (rec_bool) => {
 		let chunks = []
 		record.onstart = () => {
 			SET_INFO('Recording in progress...')
-			SET_STATUS('fa-solid fa-ear-listen fa-beat','Listening...<br> Start Speaking...')
+			SET_STATUS('fa-solid fa-ear-listen','Listening...<br> Start Speaking...')
 			window.onclick = () => {
 				if (event.target === MODAL.parentElement) {
 					return
@@ -69,18 +90,23 @@ const START_RECORDING = async (rec_bool) => {
 		}
 		
 		mediaRecorder.onstop = () => {
-			let blob = new Blob(chunks)
-			let url = URL.createObjectURL(blob)
-			AUDIO.src = url
-			AUDIO.onloadedmetadata = () => {
-				document.querySelector("#actions").style.display = 'flex'
-				document.querySelector("#audio_actions").style.display = 'flex'
+			if (TEXT_AREA.value !== null) {
+				let blob = new Blob(chunks)
+				let url = URL.createObjectURL(blob)
+				AUDIO.src = url
+				AUDIO.onloadedmetadata = () => {
+					document.querySelector("#actions").style.display = 'flex'
+					document.querySelector("#audio_actions").style.display = 'flex'
+				}
+			}else{
+				document.querySelector("#actions").style.display = 'none'
+				document.querySelector("#audio_actions").style.display = 'none'
 			}
 		}
          
         record.start()
 	} else {
-		//error msg
+		
 	}
 }
 
