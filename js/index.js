@@ -126,32 +126,17 @@ const PLAY_AUDIO = async (btn) => {
 }
 
 const EDIT = (x, btn) => {
-	if (x.disabled) {
-		x.disabled = false
-		btn.style = 'background: #eee; color: #333;'
-	} else {
-		x.disabled = true
-		btn.style = 'background: #333; color: #eee;'
-	}
+	x.disabled = false
 }
 
 const CLEAR = (x, btn) => {
-	if (x.disabled) {
-		x.disabled = false
-		x.value = ''
-		btn.style = 'background: #eee; color: #333;'
-	} else {
-		x.disabled = true
-		btn.style = 'background: #333; color: #eee;'
-	}
+	x.disabled = false
+	x.value = ''
+	AUDIO.src = undefined
+	TEXT_AREA.disabled = true
 }
 
 const COPY = (x, btn) => {
-	if (x.disabled) {
-		x.disabled = false
-		navigator.clipboard.writeText(x.value)
-		TEXT_AREA.disabled = true
-	} else {
-		x.disabled = true
-	}
+	navigator.clipboard.writeText(x.value)
+	TEXT_AREA.disabled = true
 }

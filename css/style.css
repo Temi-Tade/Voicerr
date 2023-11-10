@@ -188,6 +188,11 @@ textarea:disabled::placeholder{
 	font-weight: 300
 }
 
+#actions ul li button:focus{
+	background: #eee;
+	color: #333;
+}
+
 audio{
 	display: none;
 }
