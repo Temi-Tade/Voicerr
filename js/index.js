@@ -66,6 +66,8 @@ const START_RECORDING = async (rec_bool) => {
 		}
 		
 		record.onnomatch = () => {
+			document.querySelector("#actions").style.display = 'none'
+			document.querySelector("#audio_actions").style.display = 'none'
 			rec_bool.disabled = false
 			SET_INFO('Click on the <span class="fa-solid fa-microphone" style="color: #1CB40C"></span> button to start your recording.')
 			SET_STATUS('fa-solid fa-circle-exclamation', 'Oops! I did not catch that. Please try again')
@@ -90,7 +92,7 @@ const START_RECORDING = async (rec_bool) => {
 		}
 		
 		mediaRecorder.onstop = () => {
-			if (TEXT_AREA.value !== null) {
+			if (TEXT_AREA.value.length !== 0) {
 				let blob = new Blob(chunks)
 				let url = URL.createObjectURL(blob)
 				AUDIO.src = url
@@ -120,5 +122,36 @@ const PLAY_AUDIO = async (btn) => {
 	}
 	AUDIO.onended = () => {
 		btn.setAttribute('class', 'fa-solid fa-play')
+	}
+}
+
+const EDIT = (x, btn) => {
+	if (x.disabled) {
+		x.disabled = false
+		btn.style = 'background: #eee; color: #333;'
+	} else {
+		x.disabled = true
+		btn.style = 'background: #333; color: #eee;'
+	}
+}
+
+const CLEAR = (x, btn) => {
+	if (x.disabled) {
+		x.disabled = false
+		x.value = ''
+		btn.style = 'background: #eee; color: #333;'
+	} else {
+		x.disabled = true
+		btn.style = 'background: #333; color: #eee;'
+	}
+}
+
+const COPY = (x, btn) => {
+	if (x.disabled) {
+		x.disabled = false
+		navigator.clipboard.writeText(x.value)
+		TEXT_AREA.disabled = true
+	} else {
+		x.disabled = true
 	}
 }

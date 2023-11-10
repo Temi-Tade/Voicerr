@@ -65,6 +65,8 @@ button{
 	font-family: "Ubuntu", sans-serif;
 	font-size: 1rem;
 	user-select: none;
+	color: var(--text);
+	background: transparent;
 }
 
 textarea:disabled {
@@ -178,6 +180,8 @@ textarea:disabled::placeholder{
 	justify-content: center;
 	align-items: center;
 	padding: 1.75rem;
+	background: transparent;
+	color: var(--text);
 }
 
 #actions ul li button:not(button#del){
